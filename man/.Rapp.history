@@ -1,0 +1,212 @@
+ci.f<- function(f, df1, df2, fixed_predictors = FALSE, conf = 0.95, n.iter = 50){#
+	M <-200000#
+	alphaL <- (1-conf)/2#
+	alphaU <- 1- alphaL#
+	z <- rnorm(n= M,mean=0,sd=1)#
+	c1 <- sqrt(rchisq(n= M,df=df1-1,ncp=0))  #
+	c2 <- sqrt(rchisq(n= M,df=df2,ncp=0))#
+	cN <- sqrt(rchisq(n= M,df=df1+df2-1,ncp=0))#
+#
+	if (fixed_predictors == TRUE){#
+    	CID <- (sqrt(f^2*c2^2 - c1^2) + z)/sqrt(df2 + df1 + 1)#
+	} else {#
+		CID <- (sqrt(f^2*c2^2 - c1^2) + z)/cN#
+	}#
+ 	CID[is.na(CID)] <- 0#
+	CID[CID < 0] <- 0#
+	initial <- quantile(CID,probs=c(alphaL, alphaU))#
+	c(initial[1], initial[2])#
+}
+ci.f(f=.0.05, df1=5, df2=50, conf= 0.90)
+ci.f(f=.0.05, df1=5, df2=50, conf= 0.90)
+ci.f(f = 0.03, df1 = 2, df2 = 40)
+ci.f<- function(f, df1, df2, fixed_predictors = FALSE, conf = 0.95, n.iter = 50){#
+	options(warn=-1)  #
+	M <-200000#
+	alphaL <- (1-conf)/2#
+	alphaU <- 1- alphaL#
+	z <- rnorm(n= M,mean=0,sd=1)#
+	c1 <- sqrt(rchisq(n= M,df=df1-1,ncp=0))  #
+	c2 <- sqrt(rchisq(n= M,df=df2,ncp=0))#
+	cN <- sqrt(rchisq(n= M,df=df1+df2-1,ncp=0))#
+#
+	if (fixed_predictors == TRUE){#
+    	CID <- (sqrt(f^2*c2^2 - c1^2) + z)/sqrt(df2 + df1 + 1)#
+	} else {#
+		CID <- (sqrt(f^2*c2^2 - c1^2) + z)/cN#
+	}#
+ 	CID[is.na(CID)] <- 0#
+	CID[CID < 0] <- 0#
+ 	options(warn=0)   #
+	initial <- quantile(CID,probs=c(alphaL, alphaU))#
+	c(initial[1], initial[2])#
+}
+ci.f(f = 0.03, df1 = 2, df2 = 40)
+ci.f(f = 0.03, df1 = 2, df2 = 40)
+ci.f(f = 0.03, df1 = 2, df2 = 40)
+ci.f<- function(f, df1, df2, fixed_predictors = FALSE, conf = 0.95, n.iter = 50){#
+	options(warn=-1)  #
+	M <-2000000#
+	alphaL <- (1-conf)/2#
+	alphaU <- 1- alphaL#
+	z <- rnorm(n= M,mean=0,sd=1)#
+	c1 <- sqrt(rchisq(n= M,df=df1-1,ncp=0))  #
+	c2 <- sqrt(rchisq(n= M,df=df2,ncp=0))#
+	cN <- sqrt(rchisq(n= M,df=df1+df2-1,ncp=0))#
+#
+	if (fixed_predictors == TRUE){#
+    	CID <- (sqrt(f^2*c2^2 - c1^2) + z)/sqrt(df2 + df1 + 1)#
+	} else {#
+		CID <- (sqrt(f^2*c2^2 - c1^2) + z)/cN#
+	}#
+ 	CID[is.na(CID)] <- 0#
+	CID[CID < 0] <- 0#
+ 	options(warn=0)   #
+	initial <- quantile(CID,probs=c(alphaL, alphaU))#
+	c(initial[1], initial[2])#
+}
+ci.f(f = 0.03, df1 = 2, df2 = 40)
+ci.f(f = 0.03, df1 = 2, df2 = 40)
+ci.f(f = 0.03, df1 = 2, df2 = 40)
+ci.f(f = 0.05, df1 = 5, df2 = 50, conf = 0.90)
+ci.f(f = 0.05, df1 = 5, df2 = 50, conf = 0.90)
+ci.f(f = 0.15, df1 = 5, df2 = 50, conf = 0.90)
+ci.f(f = 0.35, df1 = 2, df2 = 100, conf = 0.95)
+ci_beta <- function(t, df1, df2, r2, r2x, conf=.95, fixed=FALSE, iter=50){#
+  options(warn=-1)  #
+  predictor_warning <- 0#
+#
+  M <-200000#
+  alphaL <- (1-conf)/2#
+  alphaU <- 1- alphaL#
+  r2change <- (t*t)*(1-r2)/df2#
+  r2reduced <- r2 - r2change#
+  samplesize <- df1 + df2 + 1#
+#
+  if (fixed == TRUE){#
+    cv<- sqrt(rchisq(n= M,df=(df2),ncp=0))#
+    z <- rnorm(n=M,mean=0,sd=1)#
+    pr <- (t*cv/sqrt(df2) + z)/sqrt(samplesize)#
+    postpr <- pr/sqrt(1+ pr*pr)#
+    if (df1 > 2) Cp1 <- rchisq(n= M,df=df1-2,ncp=0)#
+    if (df1 == 2) Cp1 <- 0#
+    Cnp1<- rchisq(n= M,df=df2+1,ncp=0)#
+    z <- rnorm(n=M ,mean=0,sd=1)#
+    samplesize <- df1 + df2 + 1#
+#
+    B <- Cnp1*r2/(1-r2) - Cp1#
+    D <- (sqrt(B) + z)^2/samplesize#
+    D[is.na(D)] <- 0#
+    CIDR2 <- D/(1 + D)#
+#
+    if (df1 > 1) CID <- postpr*(sqrt(1-CIDR2)/sqrt(1-r2x))#
+    if (df1 == 1) CID <- postpr#
+#
+    initial <- quantile(CID,probs=c(alphaL, alphaU))#
+    initialqL <- initial[1]#
+    initialqU <- initial[2]#
+    lastqL <- initialqL#
+    lastqU <- initialqU#
+#
+    lastdenL <- density(CID, from= lastqL, to = lastqL +1)$y[1]#
+    initialdenL <- lastdenL#
+    lastdenU <- density(CID, from= lastqU, to = lastqU +1)$y[1]#
+    initialdenU <- lastdenU#
+#
+    for (n in 1:n.iter){#
+      cv<- sqrt(rchisq(n= M,df=(df2),ncp=0))#
+      z <- rnorm(n=M,mean=0,sd=1)#
+      pr <- (t*cv/sqrt(df2) + z)/sqrt(samplesize)#
+      postpr <- pr/sqrt(1+ pr*pr)#
+      if (df1 > 2) Cp1 <- rchisq(n= M, df=df1-2, ncp=0)#
+      if (df1 == 2) Cp1 <- 0#
+      Cnp1<- rchisq(n= M,df=df2+1,ncp=0)#
+      z <- rnorm(n=M ,mean=0,sd=1)#
+      samplesize <- df1 + df2 + 1#
+#
+      B <- Cnp1*r2/(1-r2) - Cp1#
+      D <- (sqrt(B) + z)^2/samplesize#
+      D[is.na(D)] <- 0#
+      CIDR2 <- D/(1 + D)#
+#
+      if (df1 > 1) CID <- postpr*(sqrt(1-CIDR2)/sqrt(1-r2x))#
+      if (df1 == 1) CID <- postpr#
+#
+      fnL <- (1-1/n)*lastdenL + (1/n)*(sum(abs(CID-lastqL)<=(1/sqrt(n))))/(2*M*(1/sqrt(n)))#
+      SnL <- lastqL + (1/(n*max(fnL,initialdenL/sqrt(n))))*(alphaL - sum(CID <= lastqL)/M)#
+#
+      fnU <- (1-1/n)*lastdenU + (1/n)*(sum(abs(CID-lastqU)<=(1/sqrt(n))))/(2*M*(1/sqrt(n)))#
+      SnU <- lastqU + (1/(n*max(fnU,initialdenU/sqrt(n))))*(alphaU - sum(CID <= lastqU)/M)#
+      lastqL <- SnL#
+      lastdenL <- fnL#
+      lastqU <- SnU#
+      lastdenU <- fnU#
+    }#
+  } else if (fixed == FALSE){#
+    cv <- sqrt(rchisq(n= M,df=(df2),ncp=0))#
+    cv1 <- sqrt(rchisq(n= M,df=(df2+1),ncp=0))#
+    z <- rnorm(n=M,mean=0,sd=1)#
+    pr <- (t*cv/sqrt(df2) + z)/(cv1)#
+    postpr <- pr/sqrt(1+ pr*pr)#
+    if (df1 > 2) Cp2 <- rchisq(n= M,df=df1-2,ncp=0)#
+    if (df1 == 2) Cp2 <- 0#
+    Cnp1<- rchisq(n= M,df=df2+1,ncp=0)#
+    Cn1<- rchisq(n= M ,df=df1+df2,ncp=0)#
+    z <- rnorm(n= M ,mean=0,sd=1)#
+    B <- Cnp1* r2reduced/(1-r2reduced) - Cp2#
+    D <- (sqrt(B) + z)^2/(Cn1)#
+    D[is.na(D)] <- 0#
+    CIDR2 <- D/(1 + D)#
+#
+    if (df1 > 1) CID <- postpr*(sqrt(1-CIDR2)/sqrt(1-r2x))#
+    if (df1 == 1) CID <- postpr#
+#
+    initial <- quantile(CID,probs=c(alphaL, alphaU))#
+    initialqL <- initial[1]#
+    initialqU <- initial[2]#
+    lastqL <- initialqL#
+    lastqU <- initialqU#
+#
+    lastdenL <- density(CID, from= lastqL, to = lastqL +1)$y[1]#
+    initialdenL <- lastdenL#
+    lastdenU <- density(CID, from= lastqU, to = lastqU +1)$y[1]#
+    initialdenU <- lastdenU#
+#
+    for (n in 1: iter){#
+      cv<- sqrt(rchisq(n= M,df=(df2),ncp=0))#
+      cv1<- sqrt(rchisq(n= M,df=(df2+1),ncp=0))#
+      z <- rnorm(n=M,mean=0,sd=1)#
+      pr <- (t*cv/sqrt(df2) + z)/(cv1)#
+      postpr <- pr/sqrt(1+ pr*pr)#
+      if (df1 > 2) Cp2 <- rchisq(n= M,df=df1-2,ncp=0)#
+      if (df1 == 2) Cp2 <- 0#
+      Cnp1<- rchisq(n= M,df=df2+1,ncp=0)#
+      Cn1<- rchisq(n= M ,df=df1+df2,ncp=0)#
+      z <- rnorm(n= M ,mean=0,sd=1)#
+      B <- Cnp1* r2reduced/(1-r2reduced) - Cp2#
+      D <- (sqrt(B) + z)^2/(Cn1)#
+      D[is.na(D)] <- 0#
+      CIDR2 <- D/(1 + D)#
+#
+      if (df1 > 1) CID <- postpr*(sqrt(1-CIDR2)/sqrt(1-r2x))#
+      if (df1 == 1) CID <- postpr#
+#
+      fnL <- (1-1/n)*lastdenL + (1/n)*(sum(abs(CID-lastqL)<=(1/sqrt(n))))/(2*M*(1/sqrt(n)))#
+      SnL <- lastqL + (1/(n*max(fnL,initialdenL/sqrt(n))))*(alphaL - sum(CID <= lastqL)/M)#
+#
+      fnU <- (1-1/n)*lastdenU + (1/n)*(sum(abs(CID-lastqU)<=(1/sqrt(n))))/(2*M*(1/sqrt(n)))#
+      SnU <- lastqU + (1/(n*max(fnU,initialdenU/sqrt(n))))*(alphaU - sum(CID <= lastqU)/M)#
+      lastqL <- SnL#
+      lastdenL <- fnL#
+      lastqU <- SnU#
+      lastdenU <- fnU#
+    }#
+  } else {#
+    predictor_warning <- 1#
+    cat("Please specify fixed as TRUE or FALSE")#
+  }#
+  options(warn=0)   #
+  if (predictor_warning == 0) c(SnL,SnU)#
+}
+ci_beta(t=2.5, df1=2, df2=20, r2=.2, r2x=.05)
+ci_beta(t=3.0, df1=4, df2=40, r2=.4, r2x=.25, conf=.95, iter=100)
