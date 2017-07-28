@@ -25,4 +25,4 @@ Imports:
 Depends:
     R (>= 3.0)
 LazyData: TRUE
-RoxygenNote: 5.0.1
+RoxygenNote: 6.0.1
