@@ -88,7 +88,8 @@ desired_ep_d <- function(d, n1, n2, desired_ep=0.80, alpha=0.05, filter=0, upper
 			cdf1 <-  sqrt(rchisq(n= ndraws,df= dfnew + 1,ncp=0))
 
 			#Posterior Predictive Distribution
-			ppt <- abs(z + (posterior_lambda*cdf)/sqrt(dfnew))
+			ppt <- (z + posterior_lambda)/(cdf/sqrt(dfnew))
+			ppt <- abs(ppt)
 
 			dist <- ecdf(ppt)
 			EP <- 1 - dist(qt(alpha/2,df=dfnew,ncp=0,lower.tail=FALSE))
@@ -143,7 +144,8 @@ desired_ep_d <- function(d, n1, n2, desired_ep=0.80, alpha=0.05, filter=0, upper
 			cdf1 <-  sqrt(rchisq(n= ndraws,df= dfnew + 1,ncp=0))
 
 			#Posterior Predictive Distribution
-			ppt <- abs(z + (posterior_lambda*cdf)/sqrt(dfnew))
+			ppt <- (z + posterior_lambda)/(cdf/sqrt(dfnew))
+			ppt <- abs(ppt)
 			CI_Interval <- ci_d(d=quantile(abs(posterior),probs=c(.50)), n1=n_new, n2=n_new, conf=.95, iter=5)
 			val[i, 2]<- CI_Interval[2] - CI_Interval[1]
 
