@@ -4,7 +4,10 @@
 \alias{desired_ep_t}
 \title{Determines the required sample size in a future study to achieve the desired expected power (ep)
 based on the uncertainty associated with an existing study.
-Uses the t-test of the previous study as input in the sample size planning process.}
+Uses the t-test of the previous study as input in the sample size planning process. Converts
+the t-test to the correlational metric, determines sample size for the prospective study,
+and provides the median confidence interval width for the correlation in the prospective study
+based on that sample size.}
 \usage{
 desired_ep_t(t, df, desired_ep = 0.8, alpha = 0.05, filter = 0,
   upper_null = 0, estimate_fixed = FALSE, future_fixed = FALSE)
@@ -44,10 +47,14 @@ for the correlation in the prospective study.
 \description{
 Determines the required sample size in a future study to achieve the desired expected power (ep)
 based on the uncertainty associated with an existing study.
-Uses the t-test of the previous study as input in the sample size planning process.
+Uses the t-test of the previous study as input in the sample size planning process. Converts
+the t-test to the correlational metric, determines sample size for the prospective study,
+and provides the median confidence interval width for the correlation in the prospective study
+based on that sample size.
 }
 \examples{
 \dontrun{
 desired_ep_t(t = 3.0, df=40, desired_ep = 0.80)
 }
 }
+

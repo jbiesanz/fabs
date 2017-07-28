@@ -44,3 +44,4 @@ Fisher's fiducial approach.
 \examples{
 posterior_Cohen_f(Ftest = 5.0, df1=2, df2=50, ndraws = 10)
 }
+

@@ -37,3 +37,4 @@ A vector of samples from the posterior distribution in units of the correlation 
 Samples from the posterior distribution of the correlation coefficient. The posterior distribution is
 generated using Fisher's fiducial approach and corresponds exactly to the use of a Jeffrey's prior.
 }
+

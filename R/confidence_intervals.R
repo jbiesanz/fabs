@@ -9,6 +9,8 @@
 #' @export
 #' @import stats
 #' @import graphics
+#' @examples
+#' ci_r2(r2=.20, df1 = 3, df2 = 20)
 ci_r2 <- function(r2, df1, df2, conf=.95, fixed =FALSE){
   options(warn=-1)  #setting warning option to silent since NAs are produced.
   M <-5000000

@@ -1,6 +1,9 @@
 #' Determines the required sample size in a future study to achieve the desired expected power (ep)
 #' based on the uncertainty associated with an existing study.
-#' Uses the t-test of the previous study as input in the sample size planning process.
+#' Uses the t-test of the previous study as input in the sample size planning process. Converts
+#' the t-test to the correlational metric, determines sample size for the prospective study,
+#' and provides the median confidence interval width for the correlation in the prospective study
+#' based on that sample size.
 #'
 #' @param t The t-test of the previous study.
 #' @param df The degrees of freedom associated with the previous study
@@ -22,7 +25,7 @@
 #' @param future_fixed Specifies whether the future study will have fixed predictors.
 #' @return Returns (1) the sample size required for the future study to achieve the specified level of expected power.
 #' This reflects the uncertainty associated with the previous study and (2) the median 95% confidence interval width
-#'for the correlation in the prospective study.
+#' for the correlation in the prospective study.
 #' @export
 #' @importFrom graphics axis par plot segments text
 #' @examples

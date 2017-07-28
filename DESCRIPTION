@@ -5,7 +5,7 @@ Version: 0.1
 Date: 2017-07-27
 Authors@R: person("Jeremy", "Biesanz", email = "jbiesanz@mail.ubc.ca",
   role = c("aut", "cre"))
-Maintainer: Jeremy Biesanz <jbiesanz@psych.ubc.ca>
+Maintainer: Jeremy Biesanz <jbiesanz@mail.ubc.ca>
 Description: A general purpose toolbox that consists of a set of functions
     for applied analyses in the behavioural sciences. Confidence intervals for
     standardized effect size estimates, for both fixed and random predictors,
@@ -20,8 +20,9 @@ Description: A general purpose toolbox that consists of a set of functions
     functionality through multiple imputation.
 License: GPL (>= 2)
 Imports:
-    stats, graphics
+    stats,
+    graphics
 Depends:
     R (>= 3.0)
 LazyData: TRUE
-RoxygenNote: 6.0.1
+RoxygenNote: 5.0.1
