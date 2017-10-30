@@ -50,4 +50,3 @@ desired_ep_r(r = .59, df=13, desired_ep = 0.80)
 desired_ep_r(r = .59, df=13, desired_ep = 0.80, filter = 1)
 }
 }
-

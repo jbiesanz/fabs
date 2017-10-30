@@ -24,4 +24,3 @@ A vector of samples from the posterior distribution of the noncentral t-distribu
 Samples from the posterior distribution of the noncentral t-distribution.
 The posterior distribution is generated using Fisher's fiducial approach.
 }
-

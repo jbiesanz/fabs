@@ -51,4 +51,3 @@ Uses the F-test of the previous study as input in the sample size planning proce
 desired_ep_Ftest(Ftest = 5.0, df1=2, df2=50, desired_ep = 0.80)
 }
 }
-

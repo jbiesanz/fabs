@@ -43,7 +43,7 @@ posterior_Cohen_f <- function(Ftest, df1, df2, filter=0, upper_null=0, fixed=FAL
 	#Setting these negative posterior parameter estimates to 0.
 	posterior_f[is.na(posterior_f)] <- 0
 	posterior_f[posterior_f < 0] <- 0
-	posterior_f[posterior_f > upper_null]
+	if (upper_null > 0) posterior_f  <- posterior_f[posterior_f > upper_null]
 	ndraws <- length(posterior_f)
 
 	#Weighting using the publication bias filter
@@ -56,7 +56,8 @@ posterior_Cohen_f <- function(Ftest, df1, df2, filter=0, upper_null=0, fixed=FAL
 		select <- runif(ndraws, min=0, max=1)
 		posterior_f <- posterior_f[select < W/max(W)]
 	}
-	posterior_f
+	options(warn=0)
+	return(posterior_f)
 }
 
 #' Samples from the posterior distribution of the correlation coefficient. The posterior distribution is

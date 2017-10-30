@@ -23,4 +23,3 @@ Returns the lower and upper endpoints of the confidence interval.
 \description{
 Creates a confidence interval for Cohen's f.
 }
-

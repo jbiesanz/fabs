@@ -26,4 +26,3 @@ Creates a confidence interval for the squared multiple correlation.
 \examples{
 ci_r2(r2=.20, df1 = 3, df2 = 20)
 }
-

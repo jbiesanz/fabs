@@ -39,4 +39,3 @@ Samples from the posterior distribution of the standardized mean difference.
 The posterior distribution is generated using Fisher's fiducial approach and
 corresponds exactly to the use of a Jeffrey's prior. Assumes fixed predictor.
 }
-

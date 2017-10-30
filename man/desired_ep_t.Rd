@@ -57,4 +57,3 @@ based on that sample size.
 desired_ep_t(t = 3.0, df=40, desired_ep = 0.80)
 }
 }
-
