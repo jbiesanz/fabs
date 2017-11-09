@@ -66,11 +66,12 @@ desired_ep_d <- function(d, n1, n2, desired_ep=0.80, alpha=0.05, filter=0, upper
 		}
 
 	if(exit == 0){
-	start_n <- c(3,4,5,10,15,20,50,75,100,150,175,200,225,250,275,300,350,400,450,500,
-	            550,600,650,700,750,800,850,900,950,1000,
-				1200,1400,1600,1800,2000,2400,2600,2800,3000,
-			    4000, 5000, 6000, 7000, 8000, 9000, 10000,
-				12000, 14000, 16000, 18000, 20000, 25000, 30000, 40000, 50000)
+	  start_n <- c(3,4,5,10,15,20,25,30,35,40,45,50,55,60,65,70,75,80,85,90,95,100,110,120,130,140,
+	               150,160,175,185,200,225,250,275,300,350,400,450,500,
+	               550,600,650,700,750,800,850,900,950,1000,
+	               1200,1400,1600,1800,2000,2400,2600,2800,3000,
+	               4000, 5000, 6000, 7000, 8000, 9000, 10000,
+	               12000, 14000, 16000, 18000, 20000, 25000, 30000, 40000, 50000)
 
 	#Initial model computing expected power across the starting values ranging from n=3 to 50,000
 	posterior <- posterior_d(d=d, n1=n1, n2=n2, filter=filter, upper_null=upper_null)  #Single static posterior distribution for this initial model
@@ -103,7 +104,7 @@ desired_ep_d <- function(d, n1, n2, desired_ep=0.80, alpha=0.05, filter=0, upper
 	#detailed and precise estimate of expected power and a new smoothed spline model.
 	Starting_Expected_Power <- smooth.spline(x= start_values[,1],y= start_values[,2])
 
-	Upper_Power_Value <- ((1 - desired_ep)*.20 + desired_ep)
+	Upper_Power_Value <- min(c((1 - desired_ep)*.25 + desired_ep,.99))
 	Lower_Power_Value <- .93*desired_ep
 	if (predict(Starting_Expected_Power, max(start_n))$y < Upper_Power_Value){
 		cat("Required sample size is too high to estimate accurately.\n")
