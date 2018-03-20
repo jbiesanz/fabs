@@ -154,4 +154,3 @@ rlm.sub <- function(vstar, yhat, resid, x){
   r_lm_star <- rlm(ystar ~ 0 + x)
   r_lm_star$coef
 }
-
