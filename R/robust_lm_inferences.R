@@ -11,7 +11,6 @@
 #' (5) Robust regression with resampled wild bootstrap standard errors.
 #' @export
 #' @import MASS
-#' @import psych
 #' @import boot
 #' @examples
 #' \dontrun{

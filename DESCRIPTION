@@ -25,7 +25,6 @@ Imports:
 Depends:
     R (>= 3.0),
     MASS,
-    psych,
     boot,
     parallel
 LazyData: TRUE

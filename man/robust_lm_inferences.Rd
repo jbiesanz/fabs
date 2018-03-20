@@ -4,8 +4,7 @@
 \alias{robust_lm_inferences}
 \title{Estimates a series of robust regressions for a specified regression model.}
 \usage{
-robust_lm_inferences(data, model, R = 9999, conf = 0.95,
-  standardize = FALSE)
+robust_lm_inferences(data, model, R = 9999, conf = 0.95)
 }
 \arguments{
 \item{data}{The dataset for the analysis.}
@@ -15,8 +14,6 @@ robust_lm_inferences(data, model, R = 9999, conf = 0.95,
 \item{R}{The number of resamples to be conducted.}
 
 \item{conf}{The confidence level for intervals.}
-
-\item{standardize}{Whether to standardize the dataset.}
 }
 \value{
 Returns (1) the lm() regression model with HC4 heteroscedastic covariance consistent standard errors
