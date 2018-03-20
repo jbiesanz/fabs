@@ -21,7 +21,11 @@ Description: A general purpose toolbox that consists of a set of functions
 License: GPL (>= 2)
 Imports:
     stats,
-    graphics
+    graphics,
+    MASS,
+    parallel,
+    boot,
+    psych
 Depends:
     R (>= 3.0)
 LazyData: TRUE
