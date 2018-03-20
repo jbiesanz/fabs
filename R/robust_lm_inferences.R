@@ -4,7 +4,6 @@
 #' @param model A regression model from lm()
 #' @param R The number of resamples to be conducted.
 #' @param conf The confidence level for intervals.
-#' @param standardize Whether to standardize the dataset.
 #' @return Returns (1) the lm() regression model with HC4 heteroscedastic covariance consistent standard errors
 #' (2) p-values based on the wild bootstrap (and HC4 standard errors) under the null hypothesis.
 #' (3) percentile and BCa confidence intervals using case-wise resampling
@@ -22,9 +21,8 @@
 #' lm_model <- lm(y~x, data=temp_data)
 #' robust_lm_inferences(data=temp_data, model=lm_model)
 #' }
-robust_lm_inferences <- function(data, model, R=9999, conf=.95, standardize=FALSE){
+robust_lm_inferences <- function(data, model, R=9999, conf=.95){
   formula <- formula(model)
-  if (standardize==TRUE) data <- as.data.frame(scale(data))
   reg <- lm(formula, data=data, model=TRUE, x=TRUE, y=TRUE)
   x <- reg$x
   y <- reg$y
@@ -33,7 +31,7 @@ robust_lm_inferences <- function(data, model, R=9999, conf=.95, standardize=FALS
   HC4 <- lm_HC4(x, y, alpha = (1-conf))
   Wild_Boot_pvalues <- HC4_wildboot_pvalues(x, y, R)
   resampling <- boot(data=data, statistic= lm_boot_casewise,
-                     formula = formula(reg), R=R, standardize= standardize,
+                     formula = formula(reg), R=R,
                      parallel ="multicore", ncpus=(detectCores()-1))
 
   boot_out <- matrix(NA, nrow=p1, ncol=5)
@@ -67,9 +65,8 @@ robust_lm_inferences <- function(data, model, R=9999, conf=.95, standardize=FALS
        Wild_Robust_Regression = r_wild_output)
 }
 
-lm_boot_casewise <- function(data, formula, standardize, indices){
-  if (standardize == TRUE) coef(lm(formula, data= as.data.frame(scale(data[indices,]))))
-  else coef(lm(formula, data= data[indices,]))
+lm_boot_casewise <- function(data, formula, indices){
+  coef(lm(formula, data= data[indices,]))
 }
 
 lm_HC4 <- function(x, y, alpha=.05){

@@ -21,18 +21,12 @@ Description: A general purpose toolbox that consists of a set of functions
 License: GPL (>= 2)
 Imports:
     stats,
-    graphics,
-    MASS,
-    parallel,
-    boot,
-    psych
+    graphics
 Depends:
     R (>= 3.0),
     MASS,
     psych,
     boot,
-    parallel,
-    stats,
-    graphics
+    parallel
 LazyData: TRUE
 RoxygenNote: 6.0.1
