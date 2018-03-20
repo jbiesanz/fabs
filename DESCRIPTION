@@ -27,6 +27,12 @@ Imports:
     boot,
     psych
 Depends:
-    R (>= 3.0)
+    R (>= 3.0),
+    MASS,
+    psych,
+    boot,
+    parallel,
+    stats,
+    graphics
 LazyData: TRUE
 RoxygenNote: 6.0.1
