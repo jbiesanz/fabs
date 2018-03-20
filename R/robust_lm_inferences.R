@@ -116,7 +116,7 @@ HC4_wildboot_pvalues <- function(x, y, R=9999){
   rvalb=abs(rvalb)
   if(p==1) rvalb=t(as.matrix(rvalb))
   pvals=NA
-  for(j in 1:p1) pvals[j]=mean((rvalb[j,]>=test[j]))
+  for(j in 1:p1) pvals[j]=mean((rvalb[,j]>=test[j]))
   wildHC4_pvalue <- cbind(b,pvals)
   colnames(wildHC4_pvalue)<-c("Estimate","p-value")
   list(wild_HC4_pvalue= wildHC4_pvalue)
