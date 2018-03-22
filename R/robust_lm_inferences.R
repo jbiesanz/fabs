@@ -29,10 +29,8 @@ robust_lm_inferences <- function(data, model, R=9999, conf=.95){
 
   HC4 <- lm_HC4(x, y, alpha = (1-conf))
   Wild_Boot_pvalues <- HC4_wildboot_pvalues(x, y, R)
-  resampling <- boot(data=data, statistic= lm_boot_casewise,
-                     formula = formula(reg), R=R,
-                     parallel ="multicore", ncpus=(detectCores()-1))
-
+  resampling <- boot(data=x, statistic= lm_boot_casewise,
+                     R=R,y=y, parallel ="multicore", ncpus=(detectCores()-1))
   boot_out <- matrix(NA, nrow=p1, ncol=5)
   for (i in 1:p1){
     perc <- boot.ci(resampling, index=i,conf=conf, type="perc")
@@ -64,8 +62,11 @@ robust_lm_inferences <- function(data, model, R=9999, conf=.95){
        Wild_Robust_Regression = r_wild_output)
 }
 
-lm_boot_casewise <- function(data, formula, indices){
-  coef(lm(formula, data= data[indices,]))
+lm_boot_casewise <- function(data, y, indices){
+  x <- as.matrix(data[indices,]) #data here is the predictor matrix
+  y <- y[indices]
+  ols <- lsfit(x[,-1], y, intercept=TRUE) #Using lsfit to speed up the resampling
+  coef(ols)
 }
 
 lm_HC4 <- function(x, y, alpha=.05){
