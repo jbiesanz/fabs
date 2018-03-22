@@ -75,7 +75,7 @@ lm_HC4 <- function(x, y, alpha=.05){
   x <- as.matrix(x)
   p1 <- ncol(x)	#number of coefficients in the regression model
   if (p1 == 1) ols <- lm(y ~ 0 + x)
-  if (p1 > 1) ols <- lsfit(x[,-1], y, intercept=TRUE)
+  if (p1 > 1) ols <- lsfit(x[,-1], y, intercept=TRUE) #faster than lm()
   xtx <- solve(t(x)%*%x)
   h <- diag(x%*%xtx%*%t(x))
   n <- length(h)
@@ -97,35 +97,35 @@ lm_HC4 <- function(x, y, alpha=.05){
     ci[j,7]<-2*(1-pt(abs(ols$coef[j]/sqrt(hc4[j,j])),df))
   }
   dimnames(ci)<-list(colnames(x),c("Estimate","Std. Error","lower.ci","upper.ci","t-statistic","df","p-value"))
-  list(OLS_HC4=ci, cov=hc4)
+  list(OLS_HC4 = ci, cov = hc4)
 }
 
 
 HC4_wildboot_pvalues <- function(x, y, R=9999){
   x <- as.matrix(x)
-  p <- ncol(x)-1 	#number of predictors in the regression model
   p1 <-ncol(x)	#number of coefficients in the regression model
-  temp<-lsfit(x[,-1],y, intercept=TRUE)
-  yhat<- 0         #set equal to 0 to provide inferences for the intercept.
-  res<-temp$residuals
-  s<-lm_HC4(x, y)$cov
-  b<-temp$coef[1:p1]
-  test=abs(b)/sqrt(diag(as.matrix(s)))
-  data<-matrix(ifelse(rbinom(length(y)*R,1,0.5)==1,-1,1),nrow=R)
-  rvalb<-apply(data,1,olswbtest.sub,yhat,res,x) #rvalb is a p by R matrix
-  rvalb=abs(rvalb)
-  if(p==1) rvalb=t(as.matrix(rvalb))
+  if (p1 == 1) temp <- lm(y ~ 0 + x)
+  if (p1 > 1) temp <- lsfit(x[,-1], y, intercept=TRUE) #faster than lm()
+  yhat <- 0         #set equal to 0 to provide inferences for the intercept.
+  res <- temp$residuals
+  s <- lm_HC4(x, y)$cov
+  b <- temp$coef
+  sample_ttest <- abs(b)/sqrt(diag(as.matrix(s)))
+  vstar <- matrix(ifelse(rbinom(length(y)*R,1,0.5)==1,-1,1),nrow=R)
+  wild_tstar <- apply(vstar,1,olswbtest.sub,yhat,res,x) #rvalb is a p by R matrix
+  if(p1==1)  abs_wild_tstar <- t(as.matrix(abs(wild_tstar)))
+  if(p1 > 1) abs_wild_tstar <- as.matrix(abs(wild_tstar))
   pvals=NA
-  for(j in 1:p1) pvals[j]=mean((rvalb[,j]>=test[j]))
+  for(j in 1:p1) pvals[j] <- mean(abs_wild_tstar[j,] >= sample_ttest[j])
   wildHC4_pvalue <- cbind(b,pvals)
-  colnames(wildHC4_pvalue)<-c("Estimate","p-value")
-  list(wild_HC4_pvalue= wildHC4_pvalue)
+  colnames(wildHC4_pvalue) <- c("Estimate","p-value")
+  list(wild_HC4_pvalue = wildHC4_pvalue)
 }
 
 olswbtest.sub<-function(vstar,yhat,res,x){
   ystar <- yhat + res*vstar
   p1 <- ncol(x)
-  if (p1 == 1) vals <- t(as.matrix(lm(y ~ 0 + x)$coef[1:p1]))
+  if (p1 == 1) vals <- t(as.matrix(lm(ystar ~ 1)$coef[1:p1]))
   if (p1 > 1) vals <- t(as.matrix(lsfit(x[,-1],ystar)$coef[1:p1]))
   sa <- lm_HC4(x, ystar)$cov
   test <- vals/sqrt(diag(as.matrix(sa)))
@@ -137,11 +137,12 @@ robust_wild_se <- function(x, y, R=9999){
   resid <- r_lm$residuals
   yhat <- r_lm$fitted
 
-  data <- matrix(ifelse(rbinom(length(y)*R,1,0.5)==1,-1, 1),nrow=R)  #R by n matrix
-  rvalb <- apply(data, 1, rlm.sub, yhat, resid, x) #rvalb is a p1 by R matrix
+  vstar <- matrix(ifelse(rbinom(length(y)*R,1,0.5)==1,-1, 1),nrow=R)  #R by n matrix
+  r_wild_tstar <- apply(vstar, 1, rlm.sub, yhat, resid, x) #rvalb is a p1 by R matrix
 
   #Robust regression wild standard errors
-  r_wild_se <- sqrt(diag(cov(t(rvalb))))
+  if (ncol(x) ==1 ) r_wild_se <- var(r_wild_tstar)
+  if (ncol(x) > 1 ) r_wild_se <- sqrt(diag(cov(t(r_wild_tstar))))
   r_wild_se
 }
 
