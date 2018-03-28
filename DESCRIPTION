@@ -26,6 +26,9 @@ Depends:
     R (>= 3.0),
     MASS,
     boot,
-    parallel
+    parallel,
+    lavaan,
+    norm,
+    Matrix
 LazyData: TRUE
 RoxygenNote: 6.0.1
