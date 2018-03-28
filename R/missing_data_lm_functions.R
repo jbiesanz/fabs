@@ -80,6 +80,20 @@ fiml.regression <- function(data, model) {
   list(fiml.summary=fiml.summary, sigma=sigma)
 }
 
+#' Function to standardize all variables based on supplied mean and sd vectors
+#'
+#' @param data The dataset
+#' @param mean Vector of means.
+#' @param sd Vector of standard deviations
+#' @return Returns a dataset where all of the variables have been scaled.
+#' @export
+#' @examples
+#' \dontrun{
+#' x <- c(1,2,3,4,5)
+#' y <- c(2.1,2.5,4,5,6)
+#' temp_data <- as.data.frame(cbind(y, x))
+#' scale.all.variables(data=temp_data, mean=sapply(temp_data, mean), sd=sapply(temp_data, sd))
+#' }
 scale.all.variables <- function(data, mean, sd) {
   for (i in 1:length(data)) {
     data[, i] <- (data[, i] - means[i])/sds[i]
@@ -87,6 +101,19 @@ scale.all.variables <- function(data, mean, sd) {
   data
 }
 
+#' Function to return the EM means and standard deviations using the norm package.
+#'
+#' @param data The dataset for the analysis.
+#' @return Returns (1) the EM means and (2) the EM standard deviations for the dataset.
+#' @export
+#' @import norm
+#' @examples
+#' \dontrun{
+#' x <- c(1,2,3,4,5,NA,NA,7,7,7,7)
+#' y <- c(2.1,NA,2.1,1.8,2,2.2,4,NA,7,7,7)
+#' temp_data <- as.data.frame(cbind(y, x))
+#' em.summary(temp_data)
+#' }
 em.summary <- function(data) {
   rngseed(sample(1:1e+08, 1))
   n <- nrow(data)
