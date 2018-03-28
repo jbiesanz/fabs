@@ -128,6 +128,26 @@ em.summary <- function(data) {
   return(output)
 }
 
+#' Bootstraps the full information maximum likelihood regression model under lavaan.
+#'
+#' @param data The dataset for the analysis.
+#' @param model A regression model from lm()
+#' @param R The number of resamples to be conducted.
+#' @param conf The confidence level for intervals.
+#' @param z.function A user supplied function to standardize variables and create nonlinear terms. Called internally.
+#' @return Returns (1) maximum likelihood regression coefficient estimates
+#' (s) percentile and BCa confidence intervals using case-wise resampling
+#' @export
+#' @import MASS
+#' @import boot
+#' @examples
+#' \dontrun{
+#' x <- c(1,2,3,4,5,6)
+#' y <- c(2.1,1.9,2.1,1.8,10,2.2)
+#' temp_data <- as.data.frame(cbind(y, x))
+#' lm_model <- lm(y~x, data=temp_data)
+#' robust_lm_inferences(data=temp_data, model=lm_model)
+#' }
 boot.fiml <- function(data, model, z.function = FALSE, R=9999, conf=.95) {
   formula <- format(formula(model))
   fiml.reg <- fiml.regression(data, model)$fiml.summary
