@@ -45,7 +45,7 @@ fiml.regression <- function(data, model) {
   #Following Savalei & Rhemtulla (2012, SEM)
   #Step 1. Obtain the model-implied covariance matrix and means
   #        Use the finite sample adjustment for the covariance matrix.
-  n <- nobs(sem_model)
+  n <- lavaan::nobs(sem_model)
   Sigma.hat <- lavaan::fitted.values(sem_model)$cov * n/(n - 1)
   mu.hat <- lavaan::fitted.values(sem_model)$mean
 
@@ -129,23 +129,23 @@ fiml_boot_casewise <- function(data, indices, formula, z.function = FALSE) {
   dv <- lm(formula, data = bootdata)$terms[[2]]
 
   if (is.function(z.function) == FALSE){
-    b.model <- sem(formula, bootdata, missing = "fiml", estimator = "ML")
+    b.model <- lavaan::sem(formula, bootdata, missing = "fiml", estimator = "ML")
 
     #Trimming output to just the regression coefficients
-    sem.output <- subset(parameterEstimates(b.model), parameterEstimates(b.model)$lhs == dv)
+    sem.output <- subset(lavaan::parameterEstimates(b.model), lavaan::parameterEstimates(b.model)$lhs == dv)
     sem.output <- subset(sem.output, sem.output$rhs != dv)
   }
   else {
-    b.model <- sem(formula, bootdata, missing = "fiml", estimator = "ML")
-    n <- nobs(b.model)
-    ml.sigma <- sqrt(diag(fitted.values(b.model)$cov * n/(n - 1)))
+    b.model <- lavaan::sem(formula, bootdata, missing = "fiml", estimator = "ML")
+    n <- lavaan::nobs(b.model)
+    ml.sigma <- sqrt(diag(lavaan::fitted.values(b.model)$cov * n/(n - 1)))
     ml.sigma <- as.data.frame(t(ml.sigma), col.names= names(ml.sigma))
-    ml.mu <- fitted.values(b.model)$mean
+    ml.mu <- lavaan::fitted.values(b.model)$mean
     ml.mu <- as.data.frame(t(as.vector(ml.mu)))
     names(ml.mu) <- names(ml.sigma)
     zbootdata <- z.function(bootdata, mean = ml.mu, sd = ml.sigma)
-    z.model <- sem(formula, zbootdata,  missing = "fiml", estimator = "ML")
-    sem.output <- subset(parameterEstimates(z.model), parameterEstimates(z.model)$lhs == dv)
+    z.model <- lavaan::sem(formula, zbootdata,  missing = "fiml", estimator = "ML")
+    sem.output <- subset(lavaan::parameterEstimates(z.model), lavaan::parameterEstimates(z.model)$lhs == dv)
     sem.output <- subset(sem.output, sem.output$rhs != dv)
   }
   colnames(sem.output)[colnames(sem.output) == "rhs"] <- "Term"
