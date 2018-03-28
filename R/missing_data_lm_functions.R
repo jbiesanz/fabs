@@ -8,7 +8,6 @@
 #' and df = n*(1-gamma) where n is the number of rows in the dataset. Both N.effective and df are rounded down.
 #' (2) sigma which estimates the residual standard error.
 #' @export
-#' @import lavaan
 #' @examples
 #' \dontrun{
 #' x <- c(1,2,3,4,5,NA,NA,7,7,7,7)
@@ -18,14 +17,14 @@
 #' fiml.regression(data=temp_data, model=lm_model)
 #' }
 fiml.regression <- function(data, model) {
-  sem_model <- sem(format(formula(model)), data, missing = "fiml", estimator = "ML")
+  sem_model <- lavaan::sem(format(formula(model)), data, missing = "fiml", estimator = "ML")
 
   #Extract the name of the dependent variable.
   dv <- model$terms[[2]]
 
   #Trimming output to just the regression coefficients and residual SD
-  sem.output <- subset(parameterEstimates(sem_model),
-                       parameterEstimates(sem_model)$lhs == dv)
+  sem.output <- subset(lavaan::parameterEstimates(sem_model),
+                       lavaan::parameterEstimates(sem_model)$lhs == dv)
   #sem.output <- subset(sem.output, sem.output$rhs != dv)
   colnames(sem.output)[colnames(sem.output) == "rhs"] <- "Term"
   colnames(sem.output)[colnames(sem.output) == "est"] <- "Coefficient"
@@ -47,15 +46,15 @@ fiml.regression <- function(data, model) {
   #Step 1. Obtain the model-implied covariance matrix and means
   #        Use the finite sample adjustment for the covariance matrix.
   n <- nobs(sem_model)
-  Sigma.hat <- fitted.values(sem_model)$cov * n/(n - 1)
-  mu.hat <- fitted.values(sem_model)$mean
+  Sigma.hat <- lavaan::fitted.values(sem_model)$cov * n/(n - 1)
+  mu.hat <- lavaan::fitted.values(sem_model)$mean
 
-  model.implied <- sem(format(formula(model)), sample.cov = Sigma.hat,
+  model.implied <- lavaan::sem(format(formula(model)), sample.cov = Sigma.hat,
                        sample.mean = mu.hat, sample.nobs = n,
                        std.lv = TRUE, meanstructure = TRUE,
                        information = "observed")
-  model.implied.output <- subset(parameterEstimates(model.implied),
-                                 parameterEstimates(model.implied)$lhs == dv)
+  model.implied.output <- subset(lavaan::parameterEstimates(model.implied),
+                                 lavaan::parameterEstimates(model.implied)$lhs == dv)
   #model.implied.output <- subset(model.implied.output, model.implied.output$rhs != dv)
 
   sem.output$gamma <- 1 - (model.implied.output$se^2/sem.output$se^2)

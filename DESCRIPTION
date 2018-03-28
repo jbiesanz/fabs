@@ -21,13 +21,13 @@ Description: A general purpose toolbox that consists of a set of functions
 License: GPL (>= 2)
 Imports:
     stats,
-    graphics
+    graphics,
+    lavaan
 Depends:
     R (>= 3.0),
     MASS,
     boot,
     parallel,
-    lavaan,
     norm,
     Matrix
 LazyData: TRUE
