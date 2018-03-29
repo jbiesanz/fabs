@@ -150,15 +150,16 @@ em.summary <- function(data) {
 #' }
 boot.fiml <- function(data, model, z.function = FALSE, R=9999, conf=.95) {
   formula <- format(formula(model))
-  fiml.reg <- fiml.regression(data, model)$fiml.summary
+  #Extract estimates based on the original
+  fiml.reg <- fiml_boot_casewise(data=data,formula=formula, indices=seq(1:nrow(data)),z.function=z.function)
   resampling <- boot(data=data, statistic= fiml_boot_casewise,
                      R=R, formula=formula, z.function =z.function,
                      parallel ="multicore", ncpus=(detectCores()-1))
-  boot_out <- matrix(NA, nrow=nrow(fiml.reg), ncol=5)
-  for (i in 1:nrow(fiml.reg)){
+  boot_out <- matrix(NA, nrow=length(fiml.reg), ncol=5)
+  for (i in 1:length(fiml.reg)){
     perc <- boot.ci(resampling, index=i,conf=conf, type="perc")
     bca <-  boot.ci(resampling, index=i,conf=conf, type="bca")
-    boot_out[i,1] <- fiml.reg$Coefficient[i]
+    boot_out[i,1] <- fiml.reg[i]
     boot_out[i,2] <- perc$percent[4]
     boot_out[i,3] <- perc$percent[5]
     boot_out[i,4] <- bca$bca[4]
