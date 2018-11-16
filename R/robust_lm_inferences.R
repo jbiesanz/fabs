@@ -152,3 +152,38 @@ rlm.sub <- function(vstar, yhat, resid, x){
   r_lm_star <- rlm(ystar ~ 0 + x)
   r_lm_star$coef
 }
+
+#' Estimates the robust standardized mean difference based on trimmed means and pooled winsorized standard deviation.
+#'
+#' @param x Vector of observations from the first group.
+#' @param y Vector of observations from the second group.
+#' @param trim The proportion of observations to trim from each tail within each group.
+#' @return Returns the robust standardized mean difference $d_r$ from Algina, Keselman, and Penfield (2005)
+#' based on the trimmed means and the pooled winsorized standard deviation. The estimate for the robust standardized
+#' mean difference is adjusted to be equal to that of the standardized mean difference based on normal distribution
+#' with equal variances. The adjustment factor depends on the level of trimming.
+#' @export
+#' @import psych
+#' @examples
+#' x <- c(-2.40, -1.87, -0.60, -0.54, -0.12, -0.02, 0.12, 0.34, 0.40, 0.53, 0.55, 0.62, 0.92, 1.21,
+#'         1.49, 1.55, 1.57, 1.57, 1.82, 1.87, 1.90, 1.91, 1.93, 2.34, 2.37)
+#' y <- c(-1.32, -1.25, -0.91, -0.62, -0.55, -0.41,-0.40, -0.31, -0.28, -0.21, -0.18, -0.16, -0.03,
+#'        -0.02, 0.04, 0.22, 0.38, 0.51, 0.53, 0.61, 1.09, 1.47, 1.59, 2.39, 2.47)
+#' d_robust(x, y, trim=.20)
+d_robust <- function(x, y, trim=.20){
+  n_x <- length(x)
+  n_y <- length(y)
+
+  x_trim_mean <- winsor.mean(x, trim=trim, na.rm=TRUE)
+  y_trim_mean <- winsor.mean(y, trim=trim, na.rm=TRUE)
+  x_win_var <- winsor.var(x, trim=trim, na.rm=TRUE)
+  y_win_var <- winsor.var(y, trim=trim, na.rm=TRUE)
+
+  win_var_pooled <- ((n_x-1)*x_win_var+(n_y-1)*y_win_var)/(n_x+n_y-2)
+  #The formula for the adjustment as a function of the level of trimming was determined through extensive simulation
+  #for trim levels ranging from .01 to .48.
+  adj <- .9993 -1.7402*trim -.0512*trim^2 -.9266*trim^3
+
+  d_r <- adj*(x_trim_mean - y_trim_mean)/sqrt(win_var_pooled)
+  d_r
+}
