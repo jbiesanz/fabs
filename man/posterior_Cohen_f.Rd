@@ -6,8 +6,15 @@
 and calculates Cohen's \eqn{f} internally. The posterior distribution is generated using
 Fisher's fiducial approach.}
 \usage{
-posterior_Cohen_f(Ftest, df1, df2, filter = 0, upper_null = 0,
-  fixed = FALSE, ndraws = 2e+05)
+posterior_Cohen_f(
+  Ftest,
+  df1,
+  df2,
+  filter = 0,
+  upper_null = 0,
+  fixed = FALSE,
+  ndraws = 2e+05
+)
 }
 \arguments{
 \item{Ftest}{The F-test of the previous study.}

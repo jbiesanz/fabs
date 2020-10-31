@@ -8,8 +8,15 @@ Uses the observed standardized mean difference from the previous study as input 
 Assumes both that the previous and future study will involve fixed predictors. If this is not the case, use
 the desired_ep_t() function for full flexibility.}
 \usage{
-desired_ep_d(d, n1, n2, desired_ep = 0.8, alpha = 0.05, filter = 0,
-  upper_null = 0)
+desired_ep_d(
+  d,
+  n1,
+  n2,
+  desired_ep = 0.8,
+  alpha = 0.05,
+  filter = 0,
+  upper_null = 0
+)
 }
 \arguments{
 \item{d}{The observed standardized mean difference of the previous study based on

@@ -6,8 +6,16 @@
 based on the uncertainty associated with an existing study.
 Uses the estimated correlation of the previous study as input in the sample size planning process.}
 \usage{
-ep_r(r, df, dfnew, alpha = 0.05, filter = 0, upper_null = 0,
-  estimate_fixed = FALSE, future_fixed = FALSE)
+ep_r(
+  r,
+  df,
+  dfnew,
+  alpha = 0.05,
+  filter = 0,
+  upper_null = 0,
+  estimate_fixed = FALSE,
+  future_fixed = FALSE
+)
 }
 \arguments{
 \item{r}{The correlation from the previous study.}

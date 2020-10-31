@@ -5,8 +5,7 @@
 \title{Samples from the posterior distribution of the correlation coefficient. The posterior distribution is
 generated using Fisher's fiducial approach and corresponds exactly to the use of a Jeffrey's prior.}
 \usage{
-posterior_r(r, df, filter = 0, upper_null = 0, fixed = FALSE,
-  ndraws = 2e+05)
+posterior_r(r, df, filter = 0, upper_null = 0, fixed = FALSE, ndraws = 2e+05)
 }
 \arguments{
 \item{r}{The correlation of the previous study.}

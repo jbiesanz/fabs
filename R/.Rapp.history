@@ -1,0 +1,235 @@
+library(fabs)#
+library(MBESS)#
+#
+#ci_r2 <- function(r2, df1, df2, conf=.95, fixed =FALSE){#
+ci_r2(0, 3, 30)
+ci_r2(0, 3, 30)
+ci_r2(0, 1, 30)
+ci_r2(0, 2, 4)
+ci_r2(0, 2, 400)
+ci_r2(0, 1, 5)
+?MBESS
+??MBESS
+ci.R2(R2=0, df.1=1, df.2=5)
+library(MBESS)
+ci.R2(R2=0, df.1=1, df.2=5)
+ci.R2(R2=0, df.1=2, df.2=5)
+R2 =.01#
+df1	= 2#
+df2 = 6#
+#
+ci_r2(R2, df1, df2)#
+ci.R2(R2, df.1=df1, df.2=df2)
+R2 =.1#
+df1	= 2#
+df2 = 6#
+#
+ci_r2(R2, df1, df2)#
+ci.R2(R2, df.1=df1, df.2=df2)
+R2 =.5#
+df1	= 2#
+df2 = 6#
+#
+ci_r2(R2, df1, df2)#
+ci.R2(R2, df.1=df1, df.2=df2)
+R2 =.8#
+df1	= 2#
+df2 = 6#
+#
+ci_r2(R2, df1, df2)#
+ci.R2(R2, df.1=df1, df.2=df2)
+R2 =.1#
+df1	= 2#
+df2 = 6#
+#
+ci_r2(R2, df1, df2)#
+ci.R2(R2, df.1=df1, df.2=df2)
+R2 =.1#
+df1	= 2#
+df2 = 6#
+#
+ci_r2(R2, df1, df2)#
+ci.R2(R2, df.1=df1, df.2=df2)
+R2 =.1#
+df1	= 2#
+df2 = 3#
+#
+ci_r2(R2, df1, df2)#
+ci.R2(R2, df.1=df1, df.2=df2)
+R2 =.01#
+df1	= 2#
+df2 = 3#
+#
+ci_r2(R2, df1, df2)#
+ci.R2(R2, df.1=df1, df.2=df2)
+R2 =.01#
+df1	= 1#
+df2 = 300#
+#
+ci_r2(R2, df1, df2)#
+ci.R2(R2, df.1=df1, df.2=df2)
+R2 =.01#
+df1	= 2#
+df2 = 300#
+#
+ci_r2(R2, df1, df2)#
+ci.R2(R2, df.1=df1, df.2=df2)
+R2 =.01#
+df1	= 2#
+df2 = 30#
+#
+ci_r2(R2, df1, df2)#
+ci.R2(R2, df.1=df1, df.2=df2)
+R2 =.3#
+df1	= 2#
+df2 = 30#
+#
+ci_r2(R2, df1, df2)#
+ci.R2(R2, df.1=df1, df.2=df2)
+R2 =0#
+df1	= 2#
+df2 = 30#
+#
+ci_r2(R2, df1, df2)#
+ci.R2(R2, df.1=df1, df.2=df2)
+R2 =0.01#
+df1	= 2#
+df2 = 30#
+#
+ci_r2(R2, df1, df2)#
+ci.R2(R2, df.1=df1, df.2=df2)
+ci_r2(R2, df1, df2)
+ci_r2(R2, df1, df2)
+R2 =0.05#
+df1	= 2#
+df2 = 30#
+#
+ci_r2(R2, df1, df2)#
+ci.R2(R2, df.1=df1, df.2=df2)
+R2 =0.05#
+df1	= 5#
+df2 = 30#
+#
+ci_r2(R2, df1, df2)#
+ci.R2(R2, df.1=df1, df.2=df2)
+R2 =0.05#
+df1	= 10#
+df2 = 30#
+#
+ci_r2(R2, df1, df2)#
+ci.R2(R2, df.1=df1, df.2=df2)
+R2 = 0.1#
+df1	= 10#
+df2 = 30#
+#
+ci_r2(R2, df1, df2)#
+ci.R2(R2, df.1=df1, df.2=df2)
+R2 = 0.01#
+df1	= 10#
+df2 = 30#
+#
+ci_r2(R2, df1, df2)#
+ci.R2(R2, df.1=df1, df.2=df2)
+R2 = 0.07#
+df1	= 10#
+df2 = 30#
+#
+ci_r2(R2, df1, df2)#
+ci.R2(R2, df.1=df1, df.2=df2)
+R2 = 0.07#
+df1	= 6#
+df2 = 30#
+#
+ci_r2(R2, df1, df2)#
+ci.R2(R2, df.1=df1, df.2=df2)
+se <- .1956#
+lower<- 1.0097 - qt(.975,df=31,ncp=0)*se#
+upper<- 1.0097 + qt(.975,df=31,ncp=0)*se#
+#
+val <- matrix(NA,ncol=3, nrow=300)#
+for (i in 1:300){#
+	t <- (i-101)/100#
+	val[i,1] <- t#
+	val[i,2] <- t + 1.01#
+	val[i,3] <- dt(t/se, df=31,ncp=0)/se	#
+	}#
+#
+plot(val[,1],val[,3],main=NA,xlim=c(-1,2),ylim=c(0,2.5),col=c("grey30"),type="l",lwd=1.5,frame.plot=FALSE,axes=TRUE,xlab="Mean Difference in Self-Presentation",ylab="Density")#
+par(new=TRUE)#
+plot(val[,2],val[,3],main=NA,xlim=c(-1,2),ylim=c(0,2.5),col=c("grey30"),type="l",lwd=1.5,frame.plot=FALSE,axes=FALSE,xlab=NA,ylab=NA)#
+segments(lower,0,lower,.52, lty=2, col=c("grey40"))#
+segments(upper,0,upper,.52, lty=2, col=c("grey40"))#
+segments(lower,.27,upper,.27, lty=2, col=c("grey40"))#
+segments(1.0097,0,1.0097,2.023203, lty=1, col=c("grey40"))#
+#
+text(.9,.30,"95% CI",adj=c(0,0),cex=.8)	#
+text(.1,2.0,"Null Hypothesis\nSampling Distribution",adj=c(0,0),cex=.8)	#
+text(1.13,1.9,"Estimated\nAlternative Hypothesis\nSampling Distribution",adj=c(0,0),cex=.8)#
+text(.1, 1.85, expression(H[0]: mu[1]-mu[2]==0),adj=c(0,0),cex=.9)#
+text(1.13, 1.73, expression(hat(H)[1]: mu[1]-mu[2]==1.01),adj=c(0,0),cex=.9)
+?text
+n1 <- 16#
+n2 <- 17#
+sqrtfdf <- sqrt(n1*n2/(n1+n2))#
+df <- n1+n2-2#
+l1 <- 0#
+l3 <- 1.8*sqrtfdf#
+#
+nsim <- 5000000#
+d1 <- (1/sqrtfdf)*(rnorm(nsim,mean=0,sd=1)+ l1)/sqrt(rchisq(n= nsim,df=df,ncp=0)/df) #
+d3 <- (1/sqrtfdf)*(rnorm(nsim,mean=0,sd=1)+ l3)/sqrt(rchisq(n= nsim,df=df,ncp=0)/df) #
+#
+plot(density(d1),main=NA,type="l",lwd=1.5, xlim=c(-1.5,3.5),ylim=c(0,1.2),col=c("grey30"),frame.plot=FALSE,axes=TRUE,xlab="Observed Standardized Mean Difference",ylab="Density")#
+#
+par(new=TRUE)#
+plot(density(d3),main=NA,type="l",lwd=1.5,xlim=c(-1.5,3.5),ylim=c(0,1.2),col=c("grey30"),frame.plot=FALSE,axes=FALSE,xlab=NA,ylab=NA)#
+#
+text(0,1.18,bquote(paste( delta,"=0")))#
+text(1.8,1.0,bquote(paste( delta,"=1.8")))
+d1 <- (1/sqrtfdf)*(rnorm(nsim,mean=0,sd=1)+ l1)/sqrt(rchisq(n= nsim,df=df,ncp=0)/df) #
+d3 <- (1/sqrtfdf)*(rnorm(nsim,mean=0,sd=1)+ l3)/sqrt(rchisq(n= nsim,df=df,ncp=0)/df) #
+#
+quantile(d1, probs=c(.025,.975))[2]-quantile(d1, probs=c(.025,.975))[1] - (quantile(d3, probs=c(.025,.975))[2]-quantile(d3, probs=c(.025,.975))[1])#
+2.78-1.07 - 1.42
+valt <- matrix(NA,ncol=3, nrow= 1500)#
+for (i in 1:1500){#
+	t <- (i-1)/100#
+	valt[i,1] <- t#
+	valt[i,2] <- dt(t, df=31,ncp=2.79243)#
+	valt[i,3] <- dt(t, df=31,ncp=7.47387)	#
+	}#
+plot(valt[,1],valt[,2],main=NA,xlim=c(0,15),ylim=c(0,.5),lwd=1.5,col=c("grey30"),type="l",frame.plot=FALSE,axes=TRUE,xlab="Sample t-Test Statistic",ylab="Density")#
+par(new=TRUE)#
+plot(valt[,1],valt[,3],main=NA,xlim=c(0,15),ylim=c(0,.5),lwd=1.5,col=c("grey30"),type="l",frame.plot=FALSE,axes=FALSE,xlab=NA,ylab=NA)#
+segments(5.162065,0,5.162065,.3, lty=2, col=c("grey40"))#
+text(2.0, .38, expression(t(31,lambda[lower]==2.79)),adj=c(0,0),cex=.9)#
+text(6.7, .29, expression(t(31,lambda[upper]==7.47)),adj=c(0,0),cex=.9)#
+text(4.5, .3, expression(t[obs]==5.16),adj=c(0,0),cex=.9)
+vald <- matrix(NA,ncol=3, nrow= 1500)#
+for (i in 1:1500){#
+	t <- (i-1)/100#
+	vald[i,1] <- t*sqrt(1/16 + 1/17)#
+	vald[i,2] <- dt(t, df=31,ncp=2.79243)/sqrt(1/16 + 1/17)#
+	vald[i,3] <- dt(t, df=31,ncp=7.47387)/sqrt(1/16 + 1/17)	#
+	}#
+plot(vald[,1],vald[,2],main=NA,xlim=c(0,5),ylim=c(0,1.3),col=c("grey30"),type="l",frame.plot=FALSE,axes=TRUE,xlab="Sample Standardized Mean Difference",ylab="Density")#
+par(new=TRUE)#
+plot(vald[,1],vald[,3],main=NA,xlim=c(0,5),ylim=c(0,1.3),col=c("grey30"),type="l",frame.plot=FALSE,axes=FALSE,xlab=NA,ylab=NA)#
+segments(1.798, 0, 1.798,.8, lty=2, col=c("grey40"))#
+text(.8, 1.08, expression(delta==.97),adj=c(0,0),cex=.9)#
+text(2.40, .84, expression(delta==2.60),adj=c(0,0),cex=.9)#
+text(1.6, .8, expression(hat(delta)==1.80),adj=c(0,0),cex=.9)
+valt <- matrix(NA,ncol=3, nrow= 1500)#
+for (i in 1:1500){#
+	t <- (i-1)/100#
+	valt[i,1] <- t#
+	valt[i,2] <- dt(t, df=31,ncp=2.79243)#
+	valt[i,3] <- dt(t, df=31,ncp=7.47387)	#
+	}#
+plot(valt[,1],valt[,2],main=NA,xlim=c(0,15),ylim=c(0,.5),lwd=1.5,col=c("grey30"),type="l",frame.plot=FALSE,axes=TRUE,xlab="Sample t-Test Statistic",ylab="Density")#
+par(new=TRUE)#
+plot(valt[,1],valt[,3],main=NA,xlim=c(0,15),ylim=c(0,.5),lwd=1.5,col=c("grey30"),type="l",frame.plot=FALSE,axes=FALSE,xlab=NA,ylab=NA)#
+segments(5.162065,0,5.162065,.3, lty=2, col=c("grey40"))#
+text(2.0, .38, expression(t(31,lambda[lower]==2.79)),adj=c(0,0),cex=.9)#
+text(6.7, .29, expression(t(31,lambda[upper]==7.47)),adj=c(0,0),cex=.9)#
+text(4.5, .3, expression(t[obs]==5.16),adj=c(0,0),cex=.9)

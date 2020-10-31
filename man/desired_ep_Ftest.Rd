@@ -6,9 +6,17 @@
 based on the uncertainty associated with an existing study.
 Uses the F-test of the previous study as input in the sample size planning process.}
 \usage{
-desired_ep_Ftest(Ftest, df1, df2, desired_ep = 0.8, alpha = 0.05,
-  filter = 0, upper_null = 0, estimate_fixed = TRUE,
-  future_fixed = TRUE)
+desired_ep_Ftest(
+  Ftest,
+  df1,
+  df2,
+  desired_ep = 0.8,
+  alpha = 0.05,
+  filter = 0,
+  upper_null = 0,
+  estimate_fixed = TRUE,
+  future_fixed = TRUE
+)
 }
 \arguments{
 \item{Ftest}{The F-test of the previous study.}
