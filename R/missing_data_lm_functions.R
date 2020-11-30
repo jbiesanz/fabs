@@ -17,7 +17,7 @@
 #' fiml.regression(data=temp_data, model=lm_model)
 #' }
 fiml.regression <- function(data, model) {
-  sem_model <- lavaan::sem(format(formula(model)), data, missing = "fiml", estimator = "ML")
+  sem_model <- lavaan::sem(format(formula(model)), data, missing = "fiml", estimator = "ML", fixed.x=F)
 
   #Extract the name of the dependent variable.
   dv <- model$terms[[2]]
