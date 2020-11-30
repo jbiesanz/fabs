@@ -1,8 +1,8 @@
 Package: fabs
 Type: Package
 Title: Functions for Applied Behavioural Sciences
-Version: 0.1
-Date: 2018-03-20
+Version: 0.2
+Date: 2020-11-30
 Authors@R: person("Jeremy", "Biesanz", email = "jbiesanz@mail.ubc.ca",
   role = c("aut", "cre"))
 Maintainer: Jeremy Biesanz <jbiesanz@mail.ubc.ca>
