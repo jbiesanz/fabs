@@ -6,7 +6,7 @@
 #' or missing completely at random, standard errors, t-test statistic, p-values under t-distribution,
 #' gamma (estimated fraction of missing data), N.effective (estimated equivalent complete data sample size),
 #' and df = n*(1-gamma) where n is the number of rows in the dataset. Both N.effective and df are rounded down.
-#' (2) sigma which estimates the residual standard error.
+#' (2) sigma which estimates the residual standard error. Assumnes that fixed.x = F.
 #' @export
 #' @examples
 #' \dontrun{
