@@ -22,14 +22,14 @@ License: GPL (>= 2)
 Imports:
     stats,
     graphics,
-    lavaan
-Depends:
-    R (>= 3.0),
+    lavaan,
     MASS,
     boot,
     psych,
     parallel,
     norm,
     Matrix
+Depends:
+    R (>= 3.0)
 LazyData: TRUE
 RoxygenNote: 7.1.1

@@ -92,11 +92,11 @@ fiml.regression <- function(data, model) {
 #' x <- c(1,2,3,4,5)
 #' y <- c(2.1,2.5,4,5,6)
 #' temp_data <- as.data.frame(cbind(y, x))
-#' scale.all.variables(data=temp_data, mean=sapply(temp_data, mean), sd=sapply(temp_data, sd))
+#' scale_all_variables(data=temp_data, mean=sapply(temp_data, mean), sd=sapply(temp_data, sd))
 #' }
-scale.all.variables <- function(data, mean, sd) {
+scale_all_variables <- function(data, mean, sd) {
   for (i in 1:length(data)) {
-    data[, i] <- (data[, i] - means[i])/sds[i]
+    data[, i] <- (data[, i] - mean[i])/sd[i]
   }
   data
 }
@@ -140,6 +140,7 @@ em.summary <- function(data) {
 #' @export
 #' @import MASS
 #' @import boot
+#' @import parallel
 #' @examples
 #' \dontrun{
 #' x <- c(1,2,3,4,5,6)
@@ -220,6 +221,7 @@ fiml_boot_casewise <- function(data, indices, formula, z.function = FALSE) {
 #' and df = n*(1-gamma) where n is the number of rows in the dataset. Both N.effective and df are rounded down.
 #' @export
 #' @import norm
+#' @import Matrix
 #' @examples
 #' \dontrun{
 #' x <- c(1,2,3,4,5,NA,NA,7,7,7,7)
@@ -232,7 +234,7 @@ norm.regression <- function(data, model, m = 100, standardize = F, digits=6){
   formula <- formula(model)
   if (ncol(data) > 30) cat("Consider reducing your dataset down to a smaller number of variables (e.g., less than 30) \nas norm can experience difficulty with large datasets.")
   if (sum(sapply(data, is.numeric)) < ncol(data)) cat("Only numeric variables are appropriate for norm. Please reduce the dataset to numeric or integeter variables.\n")
-  if (rankMatrix(cov(data, use="pairwise.complete.obs"))[1] == ncol(data)){
+  if (s(cov(data, use="pairwise.complete.obs"))[1] == ncol(data)){
     rngseed(sample(1:1e+08, 1))
     model_vars <- as.data.frame(model.matrix(as.formula(formula), model.frame(formula, data, na.action = NULL)))
     if (var(model_vars[, 1]) == 0)
