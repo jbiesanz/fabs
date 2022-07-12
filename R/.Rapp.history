@@ -1,7 +1,5 @@
 library(fabs)#
 library(MBESS)#
-#
-#ci_r2 <- function(r2, df1, df2, conf=.95, fixed =FALSE){#
 ci_r2(0, 3, 30)
 ci_r2(0, 3, 30)
 ci_r2(0, 1, 30)
@@ -33,12 +31,6 @@ df2 = 6#
 ci_r2(R2, df1, df2)#
 ci.R2(R2, df.1=df1, df.2=df2)
 R2 =.8#
-df1	= 2#
-df2 = 6#
-#
-ci_r2(R2, df1, df2)#
-ci.R2(R2, df.1=df1, df.2=df2)
-R2 =.1#
 df1	= 2#
 df2 = 6#
 #
@@ -98,7 +90,6 @@ df2 = 30#
 #
 ci_r2(R2, df1, df2)#
 ci.R2(R2, df.1=df1, df.2=df2)
-ci_r2(R2, df1, df2)
 ci_r2(R2, df1, df2)
 R2 =0.05#
 df1	= 2#

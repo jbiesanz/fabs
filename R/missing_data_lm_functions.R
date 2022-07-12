@@ -234,7 +234,7 @@ norm.regression <- function(data, model, m = 100, standardize = F, digits=6){
   formula <- formula(model)
   if (ncol(data) > 30) cat("Consider reducing your dataset down to a smaller number of variables (e.g., less than 30) \nas norm can experience difficulty with large datasets.")
   if (sum(sapply(data, is.numeric)) < ncol(data)) cat("Only numeric variables are appropriate for norm. Please reduce the dataset to numeric or integeter variables.\n")
-  if (s(cov(data, use="pairwise.complete.obs"))[1] == ncol(data)){
+  if (ncol(cov(data, use="pairwise.complete.obs")) == ncol(data)){
     rngseed(sample(1:1e+08, 1))
     model_vars <- as.data.frame(model.matrix(as.formula(formula), model.frame(formula, data, na.action = NULL)))
     if (var(model_vars[, 1]) == 0)
